@@ -1,17 +1,18 @@
 {
-  "name": "embedding-atlas",
-  "version": "0.15.0",
+  "name": "@dataelvisliang/embedding-atlas",
+  "version": "0.15.0-highlight.1",
   "type": "module",
   "license": "MIT",
-  "description": "Components for interactive embedding visualization",
+  "description": "Components for interactive embedding visualization (fork with highlight prop support)",
   "keywords": [
     "embedding",
-    "visualization"
+    "visualization",
+    "highlight"
   ],
-  "homepage": "https://apple.github.io/embedding-atlas",
+  "homepage": "https://github.com/dataelvisliang/embedding-atlas",
   "repository": {
     "type": "git",
-    "url": "https://github.com/apple/embedding-atlas"
+    "url": "git+https://github.com/dataelvisliang/embedding-atlas.git"
   },
   "author": {
     "name": "Donghao Ren",
@@ -29,6 +30,9 @@
     {
       "name": "Dominik Moritz",
       "email": "domoritz@gmail.com"
+    },
+    {
+      "name": "Elvis Liang"
     }
   ],
   "scripts": {

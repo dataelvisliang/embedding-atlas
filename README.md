@@ -1,10 +1,59 @@
-# Embedding Atlas
+# Embedding Atlas (Fork with Highlight Prop)
 
-[![NPM Version](https://img.shields.io/npm/v/embedding-atlas)](https://www.npmjs.com/package/embedding-atlas)
+[![NPM Version](https://img.shields.io/npm/v/@dataelvisliang/embedding-atlas)](https://www.npmjs.com/package/@dataelvisliang/embedding-atlas)
 [![PyPI - Version](https://img.shields.io/pypi/v/embedding-atlas)](https://pypi.org/project/embedding-atlas/)
 [![Paper](https://img.shields.io/badge/paper-arXiv:2505.06386-b31b1b.svg)](https://arxiv.org/abs/2505.06386)
-![Build](https://github.com/apple/embedding-atlas/actions/workflows/ci.yml/badge.svg)
 [![GitHub License](https://img.shields.io/github/license/apple/embedding-atlas)](./LICENSE)
+
+> **This is a fork of [apple/embedding-atlas](https://github.com/apple/embedding-atlas) with programmatic highlight support.**
+>
+> **npm package:** `@dataelvisliang/embedding-atlas` (v0.15.0-highlight.2)
+>
+> **PR:** [#143](https://github.com/apple/embedding-atlas/pull/143) - Adds `highlight` prop for external point highlighting
+
+---
+
+## What's Different in This Fork
+
+This fork adds a **`highlight` prop** that allows you to programmatically highlight specific points on the embedding visualization with orange circles (same visual treatment as built-in search).
+
+```tsx
+import { EmbeddingAtlas } from '@dataelvisliang/embedding-atlas/react';
+
+// Highlight specific points by their row IDs
+<EmbeddingAtlas
+  highlight={[1, 2, 3, 4, 5]}  // Array of row IDs to highlight
+  // ... other props
+/>
+
+// Clear highlight
+<EmbeddingAtlas highlight={null} />
+```
+
+### Use Cases
+- **AI/LLM Integration**: Highlight points returned by an AI agent's search queries
+- **External Filters**: Show results from custom search or filter logic
+- **Coordinated Views**: Link selections from other visualizations to the embedding map
+- **Automated Workflows**: Programmatically direct user attention to specific data points
+
+### Installation
+
+```bash
+npm install @dataelvisliang/embedding-atlas
+```
+
+### Upstream Compatibility
+
+This fork tracks the official repository. Once [PR #143](https://github.com/apple/embedding-atlas/pull/143) is merged, you can switch back:
+
+```bash
+npm uninstall @dataelvisliang/embedding-atlas
+npm install embedding-atlas
+```
+
+---
+
+## Original README
 
 Embedding Atlas is a tool that provides interactive visualizations for large embeddings. It allows you to visualize, cross-filter, and search embeddings and metadata.
 

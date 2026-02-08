@@ -7,7 +7,7 @@
 
 > **This is a fork of [apple/embedding-atlas](https://github.com/apple/embedding-atlas) with programmatic highlight support.**
 >
-> **npm package:** `@dataelvisliang/embedding-atlas` (v0.15.0-highlight.2)
+> **npm package:** `@dataelvisliang/embedding-atlas` (v0.16.1-highlight.0)
 >
 > **PR:** [#143](https://github.com/apple/embedding-atlas/pull/143) - Adds `highlight` prop for external point highlighting
 
@@ -31,6 +31,7 @@ import { EmbeddingAtlas } from '@dataelvisliang/embedding-atlas/react';
 ```
 
 ### Use Cases
+
 - **AI/LLM Integration**: Highlight points returned by an AI agent's search queries
 - **External Filters**: Show results from custom search or filter logic
 - **Coordinated Views**: Link selections from other visualizations to the embedding map

@@ -174,13 +174,15 @@
             ),
         ),
       );
-      let mapper = new Map(queryResult.map((p) => [p.id, { identifier: p.id, x: p.x, y: p.y }]));
+      // Arrow returns BIGINT IDs as bigint even when the caller supplied a number.
+      const idKey = (id: RowID) => (Number.isSafeInteger(id) ? BigInt(id) : id);
+      let mapper = new Map(queryResult.map((p) => [idKey(p.id), { identifier: p.id, x: p.x, y: p.y }]));
       return {
-        nodes: overlay.nodes?.map((n) => mapper.get(n)).filter((x) => x != undefined),
+        nodes: overlay.nodes?.map((n) => mapper.get(idKey(n))).filter((x) => x != undefined),
         edges: overlay.edges
           ?.map((n) => {
-            let start = mapper.get(n.start);
-            let end = mapper.get(n.end);
+            let start = mapper.get(idKey(n.start));
+            let end = mapper.get(idKey(n.end));
             if (start == undefined || end == undefined) {
               return undefined;
             }

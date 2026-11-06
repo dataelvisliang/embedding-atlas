@@ -38,7 +38,11 @@ export class FocusRequestTracker {
    * whose key was already handled).
    */
   accept(request: FocusRequest | null): number | null {
-    if (request == null || request.key === this.lastKey) {
+    if (request == null) {
+      this.latestSeq++;
+      return null;
+    }
+    if (request.key === this.lastKey) {
       return null;
     }
     this.lastKey = request.key;

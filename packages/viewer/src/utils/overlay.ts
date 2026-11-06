@@ -19,7 +19,7 @@ export function resolveEffectiveOverlay(
 }
 
 /**
- * Tracks focus requests (see the viewer's `focus` prop) for one chart context.
+ * Tracks focus requests (see the viewer's `focusRequest` prop) for one view.
  *
  * A request is acted upon only when its `key` differs from the key of the
  * previously accepted request, which makes it possible to request the same

@@ -39,7 +39,7 @@
 
   import { IconSettings } from "../../assets/icons.js";
   import { latestAsync } from "../../utils/latest_async.js";
-  import { resolveEffectiveOverlay } from "../../utils/overlay.js";
+  import { FocusRequestTracker, resolveEffectiveOverlay } from "../../utils/overlay.js";
   import { isolatedWritable } from "../../utils/store.js";
   import type { ChartViewProps, Overlay as OverlayData, RowID } from "../chart.js";
   import { resolveChartTheme } from "../common/theme.js";
@@ -210,30 +210,32 @@
     };
   });
 
-  // Handle external focus requests (the viewer's `focus` prop). Only the view
-  // for the default table reacts. A request is acted upon once per unique key;
-  // if a newer request arrives while an older one is still being resolved, the
-  // older one is dropped.
+  // Each embedding view of the default table handles the shared request independently.
+  const focusTracker = new FocusRequestTracker();
   $effect.pre(() => {
-    let tracker = context.focusTracker;
-    return context.focusRequest.subscribe((request) => {
-      if (!isDefaultTable) {
-        return;
-      }
-      let seq = tracker.accept(request);
+    if (!isDefaultTable) {
+      return;
+    }
+    let active = true;
+    let unsubscribe = context.focusRequest.subscribe((request) => {
+      let seq = focusTracker.accept(request);
       if (seq == null || request == null) {
         return;
       }
       void (async () => {
         let scale = await pointViewportScale();
         let location = await queryPointLocation(request.id);
-        if (location == null || !tracker.isLatest(seq)) {
+        if (location == null || !active || !focusTracker.isLatest(seq)) {
           return;
         }
         startViewportAnimation({ x: location.x, y: location.y, scale: scale });
         tooltip = request.id;
       })();
     });
+    return () => {
+      active = false;
+      unsubscribe();
+    };
   });
 
   async function pointViewportScale(): Promise<number> {
